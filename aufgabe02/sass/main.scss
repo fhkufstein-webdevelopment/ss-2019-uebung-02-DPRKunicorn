@@ -1,5 +1,49 @@
 @import "compass/reset";
 @import "compass/css3";
+/* variablen */
+
+    /*Farben*/
+
+$errorColor: #d9534f;
+$warningColor: #f0ad4e;
+$successColor: #5cb85c;
+
+    /*Geometrie*/
+
+$marginDimension:10px 5px 10px 5px;
+$padding: 5px;
+
+    /*Transitions*/
+
+$transitionDuration:250ms;
+$transitionDelay:0;
+$transitionProperty:width;
+$transTimFunc:linear;
+
+/* mixins */
+
+@mixin beforeAfter
+{
+    content: "";
+    display: block;
+}
+@mixin strengthIndicator_before($width,$background-color)
+{
+    width:$width;
+    background-color:$background-color;
+}
+@mixin passwordArea($width,$float)
+{
+    width:$width;
+    float:$float;
+}
+@mixin inputArea ($border:1px solid #000, $margin:$marginDimension)
+{
+    border:$border;
+    margin:$margin;
+}
+
+/* scss klassen */
 
 body {
     -webkit-font-smoothing: antialiased;
@@ -8,131 +52,108 @@ body {
     font-family:'Open Sans', sans-serif;
 }
 
-/* dies ist ein kommentar */
 #main {
     width: 990px;
     margin:0 auto;
 }
-
-
-input[type="text"],input[type="password"] {
-    border:1px solid #000;
-    padding:5px;
-    margin:10px 5px 10px 5px;
-
+input {
+    &[type="text"],&[type="password"]
+    {
+    @include inputArea;
+    padding:$padding;
     width: 180px;
-}
-
-input[type="submit"] {
-    border:1px solid #000;
+    }
+    &[type="submit"] {
+    @include inputArea;
     border-radius:0;
     background-color:#fafafa;
-    margin:10px 5px 10px 5px;
     cursor:pointer;
-}
+    }
 
+}
 label {
     margin-left:5px;
 }
 
 .passwordField {
-    width:300px;
-    float:left;
+    @include passwordArea(300px,left);
 }
 
 .passwordFeedback {
-    width:250px;
-    float:left;
+    @include passwordArea(250px,left);
 }
 
 .feedback {
-    margin:10px 5px 10px 5px;
+    margin:$marginDimension;
     font-size:11px;
     font-weight:600;
 
-}
+    &.error {
+    color:$errorColor;
+    }
 
-.feedback.error {
-    color:#d9534f;
-}
+    &.warning {
+    color:$warningColor;
+    }
 
-.feedback.warning {
-    color:#f0ad4e;
-}
-
-.feedback.success {
-    color:#5cb85c;
+    &.success {
+    color:$successColor;
+    }
+    &.error,&.warning,&.success {
+    display: none;
+    }
 }
 
 .strengthIndicator {
-    margin:10px 5px 10px 5px;
+    @include inputArea($border:1px solid #d3d3d3);
     width: 200px;
-    padding:5px;
+    padding:$padding;
     height: 13px;
-    border:1px solid #d3d3d3;
-}
-
-.strengthIndicator::before {
-    content: "";
-    display: block;
+    ::before {
+    @include beforeAfter;
     height: 100%;
 
-    -moz-transition-property: width;
-    -o-transition-property: width;
-    -webkit-transition-property: width;
-    transition-property: width;
+    -moz-transition-property:$transitionProperty;
+    -o-transition-property:$transitionProperty;
+    -webkit-transition-property:$transitionProperty;
+    transition-property:$transitionProperty;
 
-    -moz-transition-delay: 0;
-    -o-transition-delay: 0;
-    -webkit-transition-delay: 0;
-    transition-delay: 0;
+    -moz-transition-delay:$transitionDelay;
+    -o-transition-delay:$transitionDelay;
+    -webkit-transition-delay:$transitionDelay;
+    transition-delay:$transitionDelay;
 
-    -moz-transition-duration: 250ms;
-    -o-transition-duration: 250ms;
-    -webkit-transition-duration: 250ms;
-    transition-duration: 250ms;
+    -moz-transition-duration:$transitionDuration;
+    -o-transition-duration:$transitionDuration;
+    -webkit-transition-duration:$transitionDuration;
+    transition-duration:$transitionDuration;
 
-    -moz-transition-timing-function: linear;
-    -o-transition-timing-function: linear;
-    -webkit-transition-timing-function: linear;
-    transition-timing-function: linear;
+    -moz-transition-timing-function:$transTimFunc;
+    -o-transition-timing-function:$transTimFunc;
+    -webkit-transition-timing-function:$transTimFunc;
+    transition-timing-function:$transTimFunc;
 }
 
-.passwordWrapper::after {
-    content: "";
-    display: block;
+}
+
+.passwordWrapper::after
+{
+    @include beforeAfter;
     clear: both;
     float: none;
 }
 
 .error .strengthIndicator::before {
-    width: 10%;
-    background-color: #d9534f;
+    @include strengthIndicator_before(10%,$errorColor);
 }
 
 .warning .strengthIndicator::before {
-    width: 60%;
-    background-color: #f0ad4e;
+    @include strengthIndicator_before(60%,$warningColor);
 }
 
 .success .strengthIndicator::before {
-    width: 100%;
-    background-color: #5cb85c;
+     @include strengthIndicator_before(100%,$successColor);
 }
-
-.feedback.error, .feedback.warning, .feedback.success {
-    display: none;
-}
-
-.error .feedback.error {
+.warning .feedback.warning, .error .feedback.error, .success .feedback.success {
     display: block;
 }
-
-.warning .feedback.warning {
-    display: block;
-}
-
-.success .feedback.success {
-    display: block;
-}
-
