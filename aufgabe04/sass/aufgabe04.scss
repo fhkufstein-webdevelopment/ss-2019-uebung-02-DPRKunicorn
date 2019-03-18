@@ -1,0 +1,30 @@
+/* mixins */
+@mixin margin($dimension...)
+{
+margin:$dimension;
+}
+@mixin breakpoint($width)
+{
+  @media (min-width:$width) {
+/* Bei einem im Mixinkopf oben spezifierten width aktiviert sich der Query
+
+dieser Mixin beinhaltet eine schon festgelegte Breite von 300px
+
+dieser Mixin kann dank @content innerhalb der geschweiften Klammern noch genauer definiert werden
+ */
+width:300px;
+@content;
+}
+}
+
+/*Testklassen*/
+.mobileInvisible {
+display:none;
+@include breakpoint(990px) {
+display: block;
+}
+}
+.closs
+{
+  @include margin( 10px 5px 3px 2px);
+}

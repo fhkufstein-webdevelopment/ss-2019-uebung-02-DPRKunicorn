@@ -1,0 +1,24 @@
+/* mixins */
+/*Testklassen*/
+/* line 21, ../sass/aufgabe04.scss */
+.mobileInvisible {
+  display: none;
+}
+@media (min-width: 990px) {
+  /* line 21, ../sass/aufgabe04.scss */
+  .mobileInvisible {
+    /* Bei einem im Mixinkopf oben spezifierten width aktiviert sich der Query
+    
+    dieser Mixin beinhaltet eine schon festgelegte Breite von 300px
+    
+    dieser Mixin kann dank @content innerhalb der geschweiften Klammern noch genauer definiert werden
+     */
+    width: 300px;
+    display: block;
+  }
+}
+
+/* line 27, ../sass/aufgabe04.scss */
+.closs {
+  margin: 10px 5px 3px 2px;
+}
