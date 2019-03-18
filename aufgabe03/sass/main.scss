@@ -2,7 +2,7 @@
 @import "compass/reset";
 //sollte diese folgende Zeile zu einer Fehlermeldung führen - kommentieren Sie die folgende und die obere Zeile aus und kommentieren Sie die nachfolgende ein
 @import "compass/css3";
-
+@import "compass/css3/transition";
 
 
 @import "base"; /* inkludiert die Datei _base.scss */
@@ -10,23 +10,26 @@
 
 
 .btn {
-    /* TODO */
+    @include single-transition(padding,300ms,linear,0ms);
 
     &.ease-in {
-        /* TODO */
+        @include single-transition(padding,300ms,ease-in,0ms);
     }
 
     &.ease-out {
-        /* TODO */
+        @include single-transition(padding,300ms,ease-out,0ms);
     }
 
     &.ease-in-out {
-        /* TODO */
+        @include single-transition(padding,300ms,ease-in-out,0ms);
     }
 
     &.green {
-        /* TODO */
+        @include single-transition(all,300ms,ease-in,0ms);
     }
+    /* verschiedene Transition function haben ein verschiedenes Verhalten bezüglich ihrer
+    relativen Änderungsrate... Animationen können schneller anfangen und langsamer abschließen
+    oder umgekehrt oder linear bleiben */
 
     &.animation {
         position: absolute;
@@ -48,4 +51,3 @@ body:hover .animation {
     padding-left: 25px;
     padding-right: 25px;
 }
-
